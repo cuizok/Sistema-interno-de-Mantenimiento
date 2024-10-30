@@ -1,0 +1,51 @@
+<?php
+// Se utiliza para llamar al archivo que contine la conexion a la base de datos
+
+error_reporting(0);
+require 'conexion.php';
+
+
+// Validamos que el formulario y que el boton registro haya sido presionado
+if(isset($_POST['registro'])) {
+
+// Obtener los valores enviados por el formulario
+    
+    
+$usuario = $_POST['usuario'];
+$semana = $_POST['semana'];
+$codigo = $_POST['codigo'];   
+$maquina = $_POST['maquina'];
+
+$falla = $_POST['falla'];
+$departamento = $_POST['departamento'];
+$modelo = $_POST['modelo'];
+$acciones = $_POST['acciones'];
+$especificaciones = $_POST['especificaciones'];
+$mecanico = $_POST['mecanico'];
+$estatus = $_POST['estatus'];
+
+    
+    
+
+// Insertamos los datos en la base de datos
+$sql = "INSERT INTO ordenes (semana, maquina, modelo, codigo, departamento, acciones, especificaciones, falla, mecanico, estatus, usuario) VALUES ('$semana', '$maquina', '$modelo', '$codigo', '$departamento', '$acciones', '$especificaciones', '$falla', '$mecanico', '$estatus', '$usuario')";
+    
+$resultado = mysqli_query($conexion,$sql);
+	if($resultado) {
+		// Iserción correcta
+		echo "¡Se insertaron los datos correctamente!";
+	} else {
+		// Iserción fallida
+		echo "¡No se puede insertar la informacion!"."<br>";
+		echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
+	}
+}
+?>
+
+
+
+<?php
+// index.php 
+header("Location: http://192.168.10.116/app/mantenimiento/index.php?vista=ordenes_list");
+exit();
+?>

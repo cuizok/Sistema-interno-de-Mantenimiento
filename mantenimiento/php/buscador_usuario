@@ -1,0 +1,17 @@
+<?php
+
+require_once "conexion.php";
+
+function obtenerUsuarios() {
+    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $consulta = $conexion->query("SELECT usuario_nombre, usuario_apellido FROM usuarios");
+
+    $usuarios = array();
+    while ($fila = $consulta->fetch(PDO::FETCH_ASSOC)) {
+        $usuarios[] = $fila;
+    }
+
+    return $usuarios;
+}
+?>
